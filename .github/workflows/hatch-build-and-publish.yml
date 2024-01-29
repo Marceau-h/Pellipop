@@ -18,10 +18,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     outputs:
-      branch: ${{ steps.check_step.outputs.branch }}
-      name: ${{ steps.check_step.outputs.name }}
-
-
+      branch: ${{ env.branch }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -33,9 +30,7 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw##*/}
-          echo "Branch is $branch."
           branch=$(echo $branch | base64 -w 0)
-          echo "Branch is $branch."
           echo "{name}=$branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
 
