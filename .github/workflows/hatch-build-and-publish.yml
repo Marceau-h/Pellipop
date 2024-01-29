@@ -32,7 +32,9 @@ jobs:
           branch=${raw##*/}
           echo "{name}=branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
-          echo "text=$(echo $branch | base64 -w 0)" >> $GITHUB_OUTPUT
+          branch=$(echo $branch | base64 -w 0)
+          echo "Branch is $branch."
+          echo "text=$branch" >> $GITHUB_OUTPUT
 
   double-check:
     runs-on: ubuntu-latest
@@ -41,7 +43,7 @@ jobs:
       - name: Double check
         run: |
           branch=${{ needs.check.outputs.branch }}
-            echo "Branch is $(echo $branch | base64 -d)."
+          echo "Branch is $(echo $branch | base64 -d)."
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,7 +63,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-            ref: ${{ env.REF }}
+          ref: ${{ env.REF }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -96,5 +98,5 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: ${{ env.REF }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.REF }}
