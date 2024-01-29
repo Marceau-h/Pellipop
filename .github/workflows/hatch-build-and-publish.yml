@@ -32,6 +32,7 @@ jobs:
           branch=${raw##*/}
           echo "{name}=branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
+          echo "$branch" >> $GITHUB_OUTPUT
 
   double-check:
     runs-on: ubuntu-latest
