@@ -32,8 +32,7 @@ jobs:
           branch=${raw##*/}
           echo "{name}=branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
-          branch=${branch | base64 -w 0}
-          echo "$branch" >> $GITHUB_OUTPUT
+          echo "text=$(echo $branch | base64 -w 0)" >> $GITHUB_OUTPUT
 
   double-check:
     runs-on: ubuntu-latest
@@ -41,7 +40,8 @@ jobs:
     steps:
       - name: Double check
         run: |
-          echo "Branch is ${{ needs.check.outputs.branch }}."
+          branch=${{ needs.check.outputs.branch }}
+            echo "Branch is $(echo $branch | base64 -d)."
 
   deploy:
     runs-on: ubuntu-latest
