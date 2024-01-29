@@ -34,6 +34,7 @@ jobs:
           echo "Branch is $BRANCH."
     outputs:
       branch: ${{ env.BRANCH }}
+      branch-name: ${{ steps.check_step.outputs.BRANCH }}
   double-check:
     runs-on: ubuntu-latest
     needs: check
@@ -43,9 +44,10 @@ jobs:
           branch=${{ needs.check.outputs.branch }}
           echo "Branch is $(echo $branch | base64 -d)."
           echo "Branch is $branch."
-          name=${{ needs.check.outputs.name }}
+          name=${{ needs.check.outputs.branch-name }}
           echo "Name is $(echo $name | base64 -d)."
           echo "Name is $name."
+
   deploy:
     runs-on: ubuntu-latest
     environment: release
