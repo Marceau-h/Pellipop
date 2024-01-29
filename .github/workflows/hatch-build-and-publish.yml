@@ -30,6 +30,7 @@ jobs:
           raw=$(git branch -r --contains ${{ github.ref }})
           BRANCH=${raw##*/}
           BRANCH=$(echo $BRANCH | base64 -w 0)
+          echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
           echo "Branch is $BRANCH."
     outputs:
       branch-name: ${{ steps.check_step.outputs.BRANCH }}
@@ -39,9 +40,6 @@ jobs:
     steps:
       - name: Double check
         run: |
-          branch=${{ needs.check.outputs.branch }}
-          echo "Branch is $(echo $branch | base64 -d)."
-          echo "Branch is $branch."
           name=${{ needs.check.outputs.branch-name }}
           echo "Name is $(echo $name | base64 -d)."
           echo "Name is $name."
