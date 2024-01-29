@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branch: ${{ steps.check_step.outputs.branch }}
+      name: ${{ steps.check_step.outputs.name }}
+
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -44,7 +47,10 @@ jobs:
         run: |
           branch=${{ needs.check.outputs.branch }}
           echo "Branch is $(echo $branch | base64 -d)."
-
+          echo "Branch is $branch."
+          name=${{ needs.check.outputs.name }}
+          echo "Name is $(echo $name | base64 -d)."
+          echo "Name is $name."
   deploy:
     runs-on: ubuntu-latest
     environment: release
