@@ -32,6 +32,7 @@ jobs:
           branch=${raw##*/}
           echo "{name}=branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
+          branch=${branch | base64 -w 0}
           echo "$branch" >> $GITHUB_OUTPUT
 
   double-check:
