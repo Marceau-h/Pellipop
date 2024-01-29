@@ -34,6 +34,7 @@ jobs:
           branch=$(echo $branch | base64 -w 0)
           echo "Branch is $branch."
           echo "{name}=$branch" >> $GITHUB_OUTPUT
+          echo "Branch is $branch."
 
   double-check:
     runs-on: ubuntu-latest
