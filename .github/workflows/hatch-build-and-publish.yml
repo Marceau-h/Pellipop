@@ -30,11 +30,10 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw##*/}
-          echo "{name}=branch" >> $GITHUB_OUTPUT
           echo "Branch is $branch."
           branch=$(echo $branch | base64 -w 0)
           echo "Branch is $branch."
-          echo "text=$branch" >> $GITHUB_OUTPUT
+          echo "{name}=$branch" >> $GITHUB_OUTPUT
 
   double-check:
     runs-on: ubuntu-latest
