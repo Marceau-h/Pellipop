@@ -1,9 +1,11 @@
 import json
-import tkinter as tk
 from pathlib import Path
-from tkinter import filedialog
 
+
+import tkinter as tk
+from tkinter import filedialog
 import ttkbootstrap as ttk
+from PIL import ImageTk, Image
 
 from pellipop.main import Pellipop, default_output_path
 from pellipop.fileFinder import how_many_files
@@ -229,11 +231,13 @@ def lancer():
 root = ttk.Window(
     "Pellipop",
     themename="journal",
-    iconphoto="pellipop.ico",
-    size=(1400, 900),
+    size=(950, 750),
     resizable=(True, True),
     minsize=(950, 750),
 )
+icon = Image.open("pellipop.ico")
+root.iconphoto(False, ImageTk.PhotoImage(icon))
+
 
 main_frame = ttk.Frame(root, padding=10)
 main_frame.pack(fill="both", expand=True)
